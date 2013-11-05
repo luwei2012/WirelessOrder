@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="white">#FFFFFF</color> <!-- 白色 -->
+    <color name="translateGray">#CC000000</color>
+    <!-- xinzhi    start -->
+    <color name="split_line">#BDBABD</color>
+    <color name="black">#000000</color>
+    <color name="blue">#87BBE2</color>
+    <color name="light_black">#333</color>
+    <color name="black_font">#000000</color>
+    <!-- xinzhi end -->
+    <color name="calendarDark">#FFFFFF</color>
+    <color name="calendarMiddle">#FFFFFF</color>
+    <color name="calendarTransparent">#00FFFFFF</color>
+
+</resources>

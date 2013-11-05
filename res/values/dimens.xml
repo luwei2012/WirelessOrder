@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="number_picker_size">20sp</dimen>
+
+</resources>

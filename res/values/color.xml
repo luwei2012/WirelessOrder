@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+   <color name="listitem_transparent">#00000000</color>  
+   <color name="listitem_second_press">#222222</color>  
+   <color name="listitem_second">#111111</color>  
+   <color name="frame_button_text_nor">#033a5c</color>
+   <color name="frame_button_text_select">#FFFFFF</color>  
+</resources>

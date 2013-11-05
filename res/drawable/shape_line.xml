@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="line" >
+
+    <!-- 渐变色 -->
+    <gradient
+        android:centerX="5"
+        android:endColor="@android:color/white"
+        android:startColor="@android:color/white"
+        android:type="sweep" />
+
+    <stroke
+        android:dashGap="3dp"
+        android:dashWidth="5dp"
+        android:width="1dp"
+        android:color="@android:color/darker_gray" />
+
+</shape>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="order_title">已点菜品</string>
+    <string name="order_handin_button">提交菜单</string>
+    
+</resources>

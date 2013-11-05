@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fcf="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <at.technikum.mti.fancycoverflow.FancyCoverFlow
+        android:id="@+id/browse_fragment_imagedetails"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+        android:spacing="-120dp"
+        fcf:maxRotation="45"
+        fcf:scaleDownGravity="0.5"
+        fcf:unselectedAlpha="0.3"
+        fcf:unselectedSaturation="0.0"
+        fcf:unselectedScale="0.4" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.5" >
+
+        <LinearLayout
+            android:id="@+id/title_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true" >
+
+            <TextView
+                android:id="@+id/flow_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/loading"
+                android:textColor="@android:color/white"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/flow_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/loading"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                android:textStyle="bold|italic" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/browse_fragment_description"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/browse_fragment_add_button"
+            android:layout_below="@+id/title_price"
+            android:layout_marginLeft="40dp"
+            android:text="@string/loading"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/browse_fragment_add_button"
+            android:layout_width="128dp"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="10dp" android:textColor="@android:color/white"
+            android:layout_marginRight="10dp"
+            android:text="@string/add_oreder" />
+    </RelativeLayout>
+
+</LinearLayout>

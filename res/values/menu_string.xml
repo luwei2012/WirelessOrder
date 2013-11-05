@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_cart">已点菜品</string>
+    <string name="menu_setting">设置</string>
+    <string name="menu_help">呼叫服务员</string>
+    
+</resources>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, WirelessOrderingActivity!</string>
+    <string name="app_name">无线点餐系统</string>
+    <string name="start_help2">help</string>
+    <string name="add_oreder">点此菜</string>
+    <string name="order_adjustment_fragment_ok">确定</string>
+    <string name="order_adjustment_fragment_cancel">取消</string>
+    <string name="order_adjustment_fragment_delete">删除</string>
+    <string name="host">http://192.168.1.113:3000</string>
+    <string name="can_not_recongnize">无法自动识别文件&#044;请手动打开</string>
+    <string name="loading">载入中</string>
+    <string name="debug">http://192.168.1.113:3000</string>
+    <string name="emailBox">用户名</string>
+    <string name="password">密码</string>
+    <string name="file_not_exist">文件不存在或者再文件夹中存在同名文件</string>
+    <string name="need_sd">需要SD卡&#033;</string>
+    <string name="connection_error">连接错误&#033;稍后再试&#033;</string>
+    <string name="today">今天</string>
+    <string name="yestoday">昨天</string>
+    <string name="title_activity_login">登录</string>
+    <string name="login_email">用户名：</string>
+    <string name="login_password">密&#160;&#160;&#160;&#160;码：</string>
+    <string name="saved_to">保存至</string>
+    <string name="capital_on">全部</string>
+    <string name="capital_off">异常</string>
+    <string name="dropToRefresh">下拉刷新</string>
+    <string name="lastUpdate">上次更新</string>
+
+</resources>

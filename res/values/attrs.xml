@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 设置 -->
+    <declare-styleable name="Preference">
+        <attr name="title" format="string" />
+        <attr name="enabled" format="boolean"></attr>
+        <attr name="persistent" format="boolean"></attr>
+        <attr name="titleCondensed" format="string" />
+        <attr name="alphabeticShortcut" format="string" />
+        <attr name="numericShortcut" format="string" />
+        <attr name="checkable" format="boolean" />
+        <attr name="selectable" format="boolean" />
+        <attr name="orderingFromXml" format="boolean" />
+        <attr name="key" format="string" />
+        <attr name="summary" format="string" />
+        <attr name="order" format="integer" />
+        <attr name="widgetLayout" format="reference" />
+        <attr name="dependency" format="string" />
+        <attr name="defaultValue" format="reference|string|integer|boolean|float" />
+        <attr name="shouldDisableView" format="boolean" />
+        <attr name="summaryOn" format="string" />
+        <attr name="summaryOff" format="string" />
+    </declare-styleable>
+
+    <!-- 开关 -->
+    <declare-styleable name="Theme">
+        <attr name="switchStyle" format="reference" />
+    </declare-styleable>
+    <declare-styleable name="Switch">
+
+        <!-- Drawable to use as the "thumb" that switches back and forth. -->
+        <attr name="thumb" format="reference" />
+        <!-- Drawable to use as the "track" that the switch thumb slides within. -->
+        <attr name="track" format="reference" />
+        <!-- Text to use when the switch is in the checked/"on" state. -->
+        <attr name="textOn" format="reference" />
+        <!-- Text to use when the switch is in the unchecked/"off" state. -->
+        <attr name="textOff" format="reference" />
+        <!-- Amount of padding on either side of text within the switch thumb. -->
+        <attr name="thumbTextPadding" format="dimension" />
+        <!-- TextAppearance style for text displayed on the switch thumb. -->
+        <attr name="switchTextAppearance" format="reference" />
+        <!-- Minimum width for the switch component -->
+        <attr name="switchMinWidth" format="dimension" />
+        <!-- Minimum space between the switch and caption text -->
+        <attr name="switchPadding" format="dimension" />
+    </declare-styleable>
+    <declare-styleable name="TextAppearance">
+
+        <!-- Text color. -->
+        <attr name="android:textColor" />
+        <!-- Size of the text. Recommended dimension type for text is "sp" for scaled-pixels (example: 15sp). -->
+        <attr name="android:textSize" />
+        <!-- Style (bold, italic, bolditalic) for the text. -->
+        <attr name="android:textStyle" />
+        <!-- Typeface (normal, sans, serif, monospace) for the text. -->
+        <attr name="android:typeface" />
+        <!-- Color of the text selection highlight. -->
+        <attr name="android:textColorHighlight" />
+        <!-- Color of the hint text. -->
+        <attr name="android:textColorHint" />
+        <!-- Color of the links. -->
+        <attr name="android:textColorLink" />
+    </declare-styleable>
+
+</resources>

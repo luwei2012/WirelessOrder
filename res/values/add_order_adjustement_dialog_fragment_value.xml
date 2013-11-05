@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_edit_text_default">如果有特殊要求请写在下方</string>
+    <string name="add_edit_title">菜品备注 : </string>
+    <string name="add_number_title">数量 : </string>
+    <string name="add_ok_button">确认</string>
+    <string name="add_cancel_button">取消</string>
+    
+</resources>

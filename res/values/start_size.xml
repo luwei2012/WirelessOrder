@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="start_up_button_size">85dp</dimen>
+    <dimen name="start_down_button_size">80dp</dimen>
+    
+</resources>
