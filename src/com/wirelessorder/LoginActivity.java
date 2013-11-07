@@ -82,9 +82,10 @@ public class LoginActivity extends Activity {
 
 			}
 		});
-
-		viewPager.setCurrentItem(MyApplication.getInstance().tables.size(),
-				true);
+		int size = MyApplication.getInstance().tables.size();
+		viewPager.setCurrentItem(size, true);
+		MyApplication.getInstance().tableNum = MyApplication.getInstance().tables
+				.get(size == 0 ? 0 : size - 1).getId();
 
 		Boolean debugBoolean = MyApplication.getInstance()
 				.getBooleanGlobalData("isDebug", BuildConfig.DEBUG);

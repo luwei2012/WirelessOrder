@@ -35,12 +35,13 @@ public class BrowDetailListFragmentAdapter extends BaseAdapter {
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
-		if (MyApplication.getInstance().dishTypes.size() == 0) {
+		if (MyApplication.getInstance().dishTypes.isEmpty()
+				|| MyApplication.getInstance().dishTypes.size() == 0) {
 			return 0;
 		} else {
 			return MyApplication.getInstance().dishTypes.get(type).getDishes()
 					.size();
-		}
+		} 
 	}
 
 	@Override
@@ -126,5 +127,11 @@ public class BrowDetailListFragmentAdapter extends BaseAdapter {
 		TextView textView0;
 		TextView textView1;
 		ImageView imageView;
+	}
+
+	public void notifyDataSetChanged(int index) {
+		// TODO Auto-generated method stub
+		type = index;
+		super.notifyDataSetChanged();
 	}
 }

@@ -24,6 +24,7 @@ public class BrowseDetailDetailFragment extends Fragment implements
 	private TextView m_DetailTextView, m_nameTextView, m_priceTextView;
 	private FancyCoverFlow m_gallery;
 	private Button m_HandinButton;
+	private Gallery3DAdapter gallery3dAdapter;
 	private AddOrderButtonOnClickListener m_addOrderButtonOnClickListener;
 
 	public static BrowseDetailDetailFragment newInstance(int index,
@@ -36,6 +37,12 @@ public class BrowseDetailDetailFragment extends Fragment implements
 		args.putString("class", v_class);
 		f.setArguments(args);
 		return f;
+	}
+	
+	public void notifyDataSetChanged(int index){
+		if (gallery3dAdapter!=null) {
+			gallery3dAdapter.notifyDataSetChanged(index);
+		}
 	}
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,7 +57,7 @@ public class BrowseDetailDetailFragment extends Fragment implements
 			catalog = temptBundle.getInt("index");
 			classString = temptBundle.getString("class");
 		}
-
+		gallery3dAdapter=new Gallery3DAdapter(catalog, m_gallery);
 		initialGallery(catalog, classString);
 		m_nameTextView = (TextView) mContentView.findViewById(R.id.flow_name);
 		m_priceTextView = (TextView) mContentView.findViewById(R.id.flow_price);
@@ -63,23 +70,11 @@ public class BrowseDetailDetailFragment extends Fragment implements
 		return mContentView;
 	}
 
-	private void initialGallery(int catalog) {
-
+	 
+	private void initialGallery(int catalog, String v_class) { 
 		m_gallery = (FancyCoverFlow) mContentView
 				.findViewById(R.id.browse_fragment_imagedetails);
-		m_gallery.setAdapter(new Gallery3DAdapter(catalog, m_gallery));
-		m_gallery.setOnItemClickListener((OnItemClickListener) this);
-		m_gallery.setOnItemSelectedListener((OnItemSelectedListener) this);
-	}
-
-	private void initialGallery(int catalog, String v_class) {
-		if (v_class.equals("browse")) {
-			initialGallery(catalog);
-			return;
-		}
-		m_gallery = (FancyCoverFlow) mContentView
-				.findViewById(R.id.browse_fragment_imagedetails);
-		m_gallery.setAdapter(new Gallery3DAdapter(catalog, m_gallery));
+		m_gallery.setAdapter(gallery3dAdapter);
 		m_gallery.setOnItemClickListener((OnItemClickListener) this);
 		m_gallery.setOnItemSelectedListener((OnItemSelectedListener) this);
 	}

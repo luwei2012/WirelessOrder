@@ -36,7 +36,7 @@ public class OrderListAdapter extends BaseAdapter {
 	public int getCount() {
 		// TODO Auto-generated method stub
 		Menu menu = MyApplication.getInstance().menu;
-		if (menu == null || menu.getDish_menus() == null
+		if (menu == null ||menu.getStatus()==1|| menu.getDish_menus() == null
 				|| menu.getDish_menus().size() == 0) {
 			return 0;
 		} else {

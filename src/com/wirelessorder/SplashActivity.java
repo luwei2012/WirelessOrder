@@ -12,8 +12,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageView;
-import android.widget.ImageView.ScaleType;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -64,10 +62,7 @@ public class SplashActivity extends Activity {
 		MyApplication.getInstance().activityList.add(this);
 		mHandler = new Handler();
 		setContentView(R.layout.activity_splash);
-		ImageView imageView = (ImageView) this
-				.findViewById(R.id.imageView_splash);
 		textView = (TextView) findViewById(R.id.textView1);
-		imageView.setScaleType(ScaleType.CENTER_CROP);
 		checkNetworkConnection();
 	}
 
@@ -77,7 +72,13 @@ public class SplashActivity extends Activity {
 			@Override
 			public void excute(String t) {
 				// 跳转到登陆界面
-				sendMessage(LOGIN_INTENT, 0);
+				if (MyApplication.getInstance().tables == null
+						|| MyApplication.getInstance().tables.size() < 1) {
+					finish();
+				} else {
+					sendMessage(LOGIN_INTENT, 0);
+				}
+
 			}
 		});
 	}
@@ -133,8 +134,7 @@ public class SplashActivity extends Activity {
 		String accString = MyApplication.getInstance().getLoginData("account",
 				null);
 		String passString = MyApplication.getInstance().getLoginData(
-				"password",
-				null);
+				"password", null);
 		if (accString != null && passString != null) {
 			// 登陆信息完整则后台登陆
 			textView.setText("正在验证个人信息...");

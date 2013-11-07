@@ -23,10 +23,20 @@ public class Gallery3DAdapter extends FancyCoverFlowAdapter {
 		type = typeIndex;
 	}
 
+	public void notifyDataSetChanged(int index) {
+		// TODO Auto-generated method stub
+		type = index;
+		super.notifyDataSetChanged();
+	}
+
 	public int getCount() {
-		return MyApplication.getInstance().dishTypes.isEmpty() ? 0
-				: MyApplication.getInstance().dishTypes.get(type).getDishes()
-						.size();
+		if (MyApplication.getInstance().dishTypes.isEmpty()
+				|| MyApplication.getInstance().dishTypes.size() == 0) {
+			return 0;
+		} else {
+			return MyApplication.getInstance().dishTypes.get(type).getDishes()
+					.size();
+		}
 	}
 
 	public Object getItem(int position) {
@@ -72,7 +82,7 @@ public class Gallery3DAdapter extends FancyCoverFlowAdapter {
 									viewGroup.requestLayout();
 									viewGroup.invalidate();
 								}
-							} 
+							}
 						}
 					}, needFillet);
 			if (draw_pic != null) {

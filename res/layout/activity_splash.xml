@@ -1,23 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="#FFEFEFEF" >
 
-    <ImageView
-        android:id="@+id/imageView_splash"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:src="@drawable/default_0" />
-
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:id="@+id/data_area"
+        android:layout_width="600dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="44dp"
-        android:layout_marginLeft="174dp" />
+        android:layout_centerInParent="true"
+        android:background="@drawable/login_bg"
+        android:gravity="center" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="bold|italic" />
+    </RelativeLayout>
 
 </RelativeLayout>

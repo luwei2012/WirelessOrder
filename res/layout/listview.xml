@@ -3,6 +3,8 @@
     android:id="@android:id/list"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#222222" >
+    android:background="#222222"
+    android:cacheColorHint="@android:color/transparent"
+    android:choiceMode="singleChoice" >
 
 </ListView>

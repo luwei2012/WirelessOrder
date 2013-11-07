@@ -48,7 +48,13 @@ public class BrowseDetailListViewFragment extends ListFragment {
 			m_CurCheckPosition = savedInstanceState.getInt("curChoice", 0);
 		}
 		getListView().setSelector(R.drawable.selector_list_item);
-		getListView().setItemChecked(m_CurCheckPosition, true);
+	}
+
+	public void notifyDataSetChanged(int index) {
+
+		if (adapter != null) {
+			adapter.notifyDataSetChanged(index);
+		}
 	}
 
 	@Override
@@ -58,10 +64,8 @@ public class BrowseDetailListViewFragment extends ListFragment {
 		m_addOrderButtonOnClickListener = new AddOrderButtonOnClickListener();
 		Bundle temptBundle = getArguments();
 		int catalog = 0;
-		String classString = null;
 		if (temptBundle != null) {
 			catalog = temptBundle.getInt("index");
-			classString = temptBundle.getString("class");
 		}
 
 		View returnedView = inflater.inflate(
@@ -70,10 +74,6 @@ public class BrowseDetailListViewFragment extends ListFragment {
 				.setOnClickListener(m_addOrderButtonOnClickListener);
 		listView = (ListView) returnedView.findViewById(android.R.id.list);
 		right_views = returnedView.findViewById(R.id.right_views);
-		if (classString.equals("browse")) {
-		} else if (classString.equals("onsale")) {
-		} else if (classString.equals("recommand")) {
-		}
 
 		adapter = new BrowDetailListFragmentAdapter(getActivity(),
 				R.layout.browse_detail_listfragment_itemview, catalog, listView);

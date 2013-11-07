@@ -9,7 +9,7 @@
         android:layout_width="800dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@drawable/background_login_bg">
+        android:background="@drawable/background_login_bg" >
 
         <RelativeLayout
             android:id="@+id/relative_head"
@@ -68,6 +68,7 @@
                     android:gravity="center|right"
                     android:inputType="number"
                     android:textColor="@android:color/white"
+                    android:textCursorDrawable="@null"
                     android:textSize="25sp" />
 
                 <TextView
@@ -131,6 +132,7 @@
             android:inputType="textMultiLine"
             android:text="@string/add_edit_text_default"
             android:textColor="@android:color/white"
+            android:textCursorDrawable="@null"
             android:textSize="14sp" />
 
         <requestFocus />

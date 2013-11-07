@@ -12,16 +12,14 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.wirelessorder.R;
-import com.wirelessorder.entity.DishType;
 import com.wirelessorder.global.MyApplication;
 import com.wirelessorder.interfaces.OnDetailChangedListener;
-import com.wirelessorder.util.Callback;
 
 public class BrowseDetailCatalogFragment extends ListFragment {
-	private boolean isLoading = false;
 	private int m_CurCheckPosition = 0;
 	private OnDetailChangedListener listener;
 	private ListView listView;
+	private MyArrayAdapter myArrayAdapter;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -29,29 +27,25 @@ public class BrowseDetailCatalogFragment extends ListFragment {
 		// TODO Auto-generated method stub
 		View view = inflater.inflate(R.layout.listview, null);
 		listView = (ListView) view.findViewById(android.R.id.list);
-		listView.setAdapter(new MyArrayAdapter(getActivity(),
-				R.layout.simple_list_item));
-		listener = (OnDetailChangedListener) getActivity();
-		if (!isLoading) {
-			startLoadingThread();
-		}
+		myArrayAdapter = new MyArrayAdapter(getActivity(),
+				R.layout.simple_list_item);
+		listView.setAdapter(myArrayAdapter);
+		listener = (OnDetailChangedListener) getActivity(); 
 		return view;
 	}
 
-	private void startLoadingThread() {
-		// TODO Auto-generated method stub
-		isLoading = true;
-		DishType.getDishTypes(new Callback<String>() {
-
-			@Override
-			public void excute(String t) {
-				// TODO Auto-generated method stub
-				isLoading = false;
-				listener.onDetailChanged(m_CurCheckPosition);
-			}
-		});
-
+	public void notifyDataSetChanged(int index) {
+		m_CurCheckPosition = index;
+		if (myArrayAdapter != null) {
+			myArrayAdapter.notifyDataSetChanged();
+		}
+		listView.clearChoices();
+		if (m_CurCheckPosition<myArrayAdapter.getCount()) {
+			listView.setItemChecked(m_CurCheckPosition, true);
+		}
+		
 	}
+
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -61,8 +55,7 @@ public class BrowseDetailCatalogFragment extends ListFragment {
 			// Restore last state for checked position.
 			m_CurCheckPosition = savedInstanceState.getInt("curChoice", 0);
 		}
-
-		getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+		getListView().setSelector(R.drawable.selector_list_item);
 		getListView().setItemChecked(m_CurCheckPosition, true);
 	}
 
@@ -130,9 +123,6 @@ public class BrowseDetailCatalogFragment extends ListFragment {
 	public void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		if (MyApplication.getInstance().dishTypes.size() == 0) {
-			startLoadingThread();
-		}
 	}
 
 }

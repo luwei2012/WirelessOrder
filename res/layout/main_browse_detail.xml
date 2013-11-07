@@ -1,23 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/BrowseDetailContainer"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:baselineAligned="false"
     android:orientation="horizontal" >
 
     <fragment
         android:id="@+id/Titiles"
+        android:name="com.wirelessorder.fragment.BrowseDetailCatalogFragment"
         android:layout_width="193dp"
-        android:layout_height="match_parent"
-        class="com.wirelessorder.fragment.BrowseDetailCatalogFragment" />
+        android:layout_height="match_parent" />
 
     <FrameLayout
         android:id="@+id/Details"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         android:orientation="horizontal" >
+
+        <TextView
+            android:id="@android:id/empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="暂无此类菜品信息"
+            android:textColor="@android:color/white"
+            android:textSize="30sp"
+            android:textStyle="bold|italic"
+            android:visibility="invisible" />
     </FrameLayout>
 
     <LinearLayout
@@ -28,12 +39,12 @@
 
         <Button
             android:id="@+id/browse_detail_change_browse_way_list_button"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="120dp" />
 
         <Button
             android:id="@+id/browse_detail_change_browse_way_gallery_button"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="120dp" />
     </LinearLayout>
 

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="start_help">呼叫服务员</string>
     <string name="start_account">结账</string>
     <string name="start_entertainment">娱乐</string>
-    <string name="start_search">搜索菜品</string>
     <string name="start_onsale">特价菜品</string>
     <string name="start_recommand">推荐菜品</string>
     <string name="start_browse">浏览菜品</string>
-    
+
 </resources>

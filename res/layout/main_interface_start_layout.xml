@@ -29,9 +29,36 @@
                 android:addStatesFromChildren="false" >
 
                 <LinearLayout
+                    android:id="@+id/start_browser_linearlayout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="@id/up_father"
+                    android:layout_centerVertical="true"
+                    android:orientation="vertical" >
+
+                    <Button
+                        android:id="@+id/start_brower_button"
+                        android:layout_width="@dimen/start_up_button_size"
+                        android:layout_height="@dimen/start_up_button_size"
+                        android:background="@drawable/start_browser" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:text="@string/start_browse" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/start_onsale_linearlayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:orientation="vertical" >
 
@@ -54,33 +81,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/start_search_linearlayout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:orientation="vertical" >
-
-                    <Button
-                        android:id="@+id/start_search_button"
-                        android:layout_width="@dimen/start_up_button_size"
-                        android:layout_height="@dimen/start_up_button_size"
-                        android:background="@drawable/start_search" />
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" >
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:text="@string/start_search" />
-                    </RelativeLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/linearLayout1"
+                    android:id="@+id/start_recomand_linearlayout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
@@ -102,32 +103,6 @@
                             android:layout_height="wrap_content"
                             android:layout_centerHorizontal="true"
                             android:text="@string/start_recommand" />
-                    </RelativeLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/linearLayout1"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginTop="10dp"
-                    android:orientation="vertical" >
-
-                    <Button
-                        android:id="@+id/start_brower_button"
-                        android:layout_width="@dimen/start_up_button_size"
-                        android:layout_height="@dimen/start_up_button_size"
-                        android:background="@drawable/start_browser" />
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" >
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:text="@string/start_browse" />
                     </RelativeLayout>
                 </LinearLayout>
             </RelativeLayout>
@@ -194,8 +169,6 @@
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:layout_centerHorizontal="true"
-                android:layout_centerInParent="true"
                 android:layout_weight="1" >
 
                 <LinearLayout

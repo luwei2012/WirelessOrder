@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DialogFragment;
@@ -31,12 +32,10 @@ import com.wirelessorder.global.MyApplication;
 import com.wirelessorder.interfaces.OnDetailChangedListener;
 import com.wirelessorder.util.Callback;
 
-public class MainActivity extends Activity implements
-		Animation.AnimationListener, OnDetailChangedListener {
+public class MainActivity extends Activity implements OnDetailChangedListener {
 
 	private Intent m_startActivityIntent = new Intent();;
 
-	private Button m_startSearchButton;
 	private Button m_startBrowseButton;
 	private Button m_startOnsaleButton;
 	private Button m_startReconmmendButton;
@@ -50,6 +49,7 @@ public class MainActivity extends Activity implements
 
 	private Animation m_startButtonAnimation;
 	private Animation m_startCartAnimation;
+	private Animation m_startServeAnimation;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -62,10 +62,10 @@ public class MainActivity extends Activity implements
 				R.anim.start_button_animationset);
 		m_startCartAnimation = AnimationUtils.loadAnimation(this,
 				R.anim.start_cart_selected_animation);
-		m_startButtonAnimation.setAnimationListener(this);
+		m_startServeAnimation = AnimationUtils.loadAnimation(this,
+				R.anim.start_button_animationset);
 
 		m_buttonCollection = new ArrayList<Button>();
-		m_startSearchButton = (Button) findViewById(R.id.start_search_button);
 		m_startBrowseButton = (Button) findViewById(R.id.start_brower_button);
 		m_startOnsaleButton = (Button) findViewById(R.id.start_onsale_button);
 		m_startReconmmendButton = (Button) findViewById(R.id.start_recomand_button);
@@ -75,7 +75,6 @@ public class MainActivity extends Activity implements
 		m_startAccountButton = (Button) findViewById(R.id.start_account_button);
 		m_cartParent = (RelativeLayout) findViewById(R.id.start_cart_parent_relativeLayout);
 
-		m_buttonCollection.add(m_startSearchButton);
 		m_buttonCollection.add(m_startBrowseButton);
 		m_buttonCollection.add(m_startOnsaleButton);
 		m_buttonCollection.add(m_startReconmmendButton);
@@ -83,7 +82,6 @@ public class MainActivity extends Activity implements
 		m_buttonCollection.add(m_startEntertainmentButton);
 		m_buttonCollection.add(m_startAccountButton);
 
-		m_startSearchButton.setOnClickListener(new StartSearchButtonListener());
 		m_startBrowseButton.setOnClickListener(new StartBrowseButtonListener());
 		m_startOnsaleButton.setOnClickListener(new StartOnsaleButtonListener());
 		m_startReconmmendButton
@@ -105,12 +103,17 @@ public class MainActivity extends Activity implements
 	@Override
 	public void onResume() {
 		super.onResume();
-		if (!(MyApplication.getInstance().menu.getDish_menus() == null)
+		ImageView cartImage = (ImageView) m_cartParent
+				.findViewById(R.id.start_cart_image);
+
+		if (MyApplication.getInstance().menu.getStatus() != 1
+				&& !(MyApplication.getInstance().menu.getDish_menus() == null)
 				&& (MyApplication.getInstance().menu.getDish_menus().size() > 0)) {
-			ImageView cartImage = (ImageView) m_cartParent
-					.findViewById(R.id.start_cart_image);
 			cartImage.setImageDrawable(getResources().getDrawable(
 					R.drawable.fullcart));
+		} else {
+			cartImage.setImageDrawable(getResources().getDrawable(
+					R.drawable.emptycart));
 		}
 		setVisiblility(View.VISIBLE);
 	}
@@ -120,23 +123,6 @@ public class MainActivity extends Activity implements
 			temptButton.setVisibility(v_isVisible);
 		}
 
-	}
-
-	public class StartSearchButtonListener implements OnClickListener {
-
-		public void onClick(View v) {
-			// v.startAnimation(m_startButtonAnimation);
-			// Bundle dataBundle = new Bundle();
-			// dataBundle.putString("function", "search");
-			// m_startActivityIntent.replaceExtras(dataBundle);
-			// m_startActivityIntent.setClass(StartActivity.this,
-			// com.WirelessOrdering.UI.BrowseDetailActivity.class);
-
-			// Message msg2 = Message.obtain(null,
-			// MessageType.UPDATEPICTURE_REQ, 0,
-			// MessageType.READSTOCK_REQ, null);
-			// mConnection.sendMessage(msg2);
-		}
 	}
 
 	public class StartBrowseButtonListener implements OnClickListener {
@@ -153,6 +139,7 @@ public class MainActivity extends Activity implements
 					m_startActivityIntent.replaceExtras(dataBundle);
 					m_startActivityIntent.setClass(MainActivity.this,
 							BrowseActivity.class);
+					MainActivity.this.startActivity(m_startActivityIntent);
 				}
 			});
 		}
@@ -162,47 +149,70 @@ public class MainActivity extends Activity implements
 
 		public void onClick(View v) {
 			v.startAnimation(m_startButtonAnimation);
+			DishType.getDishRecommendTypes(new Callback<String>() {
 
-			Bundle dataBundle = new Bundle();
-			dataBundle.putString("function", "recommand");
-			m_startActivityIntent.replaceExtras(dataBundle);
-			m_startActivityIntent.setClass(MainActivity.this,
-					LoginActivity.class);
+				@Override
+				public void excute(String t) {
+					// TODO Auto-generated method stub
+					Bundle dataBundle = new Bundle();
+					dataBundle.putString("function", "recommand");
+					m_startActivityIntent.replaceExtras(dataBundle);
+					m_startActivityIntent.setClass(MainActivity.this,
+							BrowseActivity.class);
+					MainActivity.this.startActivity(m_startActivityIntent);
+				}
+			});
 
 		}
 	}
 
 	@Override
 	public void onBackPressed() {
-		AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+		if (MyApplication.getInstance().menu != null
+				&& MyApplication.getInstance().menu.getStatus() != 1) {
+			AlertDialog.Builder builder = new AlertDialog.Builder(
+					MainActivity.this);
 
-		builder.setMessage("您还没有结账请先结账").setCancelable(false)
-				.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int id) {
-						dialog.dismiss();
-					}
-				});
-		AlertDialog alert = builder.create();
-		alert.show();
+			builder.setMessage("您还没有结账请先结账")
+					.setCancelable(false)
+					.setPositiveButton("确定",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int id) {
+									dialog.dismiss();
+								}
+							});
+			AlertDialog alert = builder.create();
+			alert.show();
+		} else {
+			super.onBackPressed();
+		}
 	}
 
 	public class StartOnsaleButtonListener implements OnClickListener {
 
 		public void onClick(View v) {
 			v.startAnimation(m_startButtonAnimation);
+			DishType.getDishOnSaleTypes(new Callback<String>() {
 
-			Bundle dataBundle = new Bundle();
-			dataBundle.putString("function", "onsale");
-			m_startActivityIntent.replaceExtras(dataBundle);
-			m_startActivityIntent.setClass(MainActivity.this,
-					LoginActivity.class);
+				@Override
+				public void excute(String t) {
+					// TODO Auto-generated method stub
+					Bundle dataBundle = new Bundle();
+					dataBundle.putString("function", "onsale");
+					m_startActivityIntent.replaceExtras(dataBundle);
+					m_startActivityIntent.setClass(MainActivity.this,
+							BrowseActivity.class);
+					MainActivity.this.startActivity(m_startActivityIntent);
+				}
+			});
 		}
 	}
 
 	public class StartHelpButtonListener implements OnClickListener {
 
 		public void onClick(View v) {
-			v.startAnimation(m_startButtonAnimation);
+			v.startAnimation(m_startServeAnimation);
 			// 呼叫服务员
 			Toast.makeText(MainActivity.this, "当前功能暂不可用！", Toast.LENGTH_SHORT)
 					.show();
@@ -212,14 +222,14 @@ public class MainActivity extends Activity implements
 	public class StartEntertainmentButtonListener implements OnClickListener {
 
 		public void onClick(View v) {
-			v.startAnimation(m_startButtonAnimation);
+			v.startAnimation(m_startServeAnimation);
 		}
 	}
 
 	public class StartAccountButtonListener implements OnClickListener {
 
 		public void onClick(View v) {
-			v.startAnimation(m_startButtonAnimation);
+			v.startAnimation(m_startServeAnimation);
 			AlertDialog.Builder builder = new AlertDialog.Builder(
 					MainActivity.this);
 
@@ -239,6 +249,7 @@ public class MainActivity extends Activity implements
 											try {
 												jsonObject = new JSONObject(t);
 												if (jsonObject.getInt("result") == 1) {
+													onAddClicked();
 													AlertDialog.Builder builder = new AlertDialog.Builder(
 															MainActivity.this);
 													builder.setMessage(
@@ -249,13 +260,19 @@ public class MainActivity extends Activity implements
 															.setCancelable(
 																	false)
 															.setPositiveButton(
-																	"查看详细",
+																	"我有疑惑",
 																	new DialogInterface.OnClickListener() {
 
 																		@Override
 																		public void onClick(
 																				DialogInterface dialog,
 																				int which) {
+																			// 呼叫服务员
+																			Toast.makeText(
+																					MainActivity.this,
+																					"正在为您呼叫服务员，请耐心等待！",
+																					Toast.LENGTH_SHORT)
+																					.show();
 																			dialog.cancel();
 																		}
 																	})
@@ -288,7 +305,7 @@ public class MainActivity extends Activity implements
 											}
 										}
 									});
-									dialog.dismiss();
+									dialog.cancel();
 								}
 							})
 					.setNegativeButton("取消",
@@ -305,6 +322,7 @@ public class MainActivity extends Activity implements
 
 	public class StartCartLayoutListener implements OnClickListener {
 
+		@SuppressLint("CommitTransaction")
 		public void onClick(View v) {
 			v.startAnimation(m_startCartAnimation);
 			FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -321,25 +339,6 @@ public class MainActivity extends Activity implements
 		}
 	}
 
-	public void onAnimationEnd(Animation animation) {
-		if (m_startActivityIntent.getExtras() != null) {
-			setVisiblility(View.INVISIBLE);
-			startActivity(m_startActivityIntent);
-			overridePendingTransition(R.anim.activity_fade,
-					R.anim.activity_hold);
-		}
-	}
-
-	public void onAnimationRepeat(Animation animation) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void onAnimationStart(Animation animation) {
-		// TODO Auto-generated method stub
-
-	}
-
 	@Override
 	public void onDetailChanged(int index) {
 		// TODO Auto-generated method stub
@@ -349,14 +348,17 @@ public class MainActivity extends Activity implements
 	@Override
 	public void onAddClicked() {
 		// TODO Auto-generated method stub
+		ImageView cartImage = (ImageView) m_cartParent
+				.findViewById(R.id.start_cart_image);
+
 		if (!(MyApplication.getInstance().menu.getDish_menus() == null)
 				&& (MyApplication.getInstance().menu.getDish_menus().size() > 0)) {
-			ImageView cartImage = (ImageView) m_cartParent
-					.findViewById(R.id.start_cart_image);
 			cartImage.setImageDrawable(getResources().getDrawable(
 					R.drawable.fullcart));
+		} else {
+			cartImage.setImageDrawable(getResources().getDrawable(
+					R.drawable.emptycart));
 		}
-		FragmentTransaction ft = getFragmentManager().beginTransaction();
 		OrderDialogFragment prev = (OrderDialogFragment) getFragmentManager()
 				.findFragmentByTag("OrderDialogFragment");
 		if (prev != null) {

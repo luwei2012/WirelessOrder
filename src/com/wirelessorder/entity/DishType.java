@@ -124,4 +124,120 @@ public class DishType {
 			}
 		});
 	}
+
+	public static void getDishRecommendTypes(final Callback<String> callback) {
+		String url = MyApplication.getInstance().getString()
+				+ "/mobile/m_dish/dish_type_list_recommend";
+		MyApplication.getInstance().http.get(url, new AjaxCallBack<String>() {
+			@SuppressWarnings("unchecked")
+			@Override
+			public void onSuccess(String t) {
+				// TODO Auto-generated method stub
+				super.onSuccess(t);
+				List<DishType> dishTypes = (List<DishType>) JsonUtil
+						.json2object(t, new TypeReference<List<DishType>>() {
+						});
+				FinalDb db = MyApplication.getInstance().db;
+				for (Iterator<DishType> iterator = dishTypes.iterator(); iterator
+						.hasNext();) {
+					DishType dishType = (DishType) iterator.next();
+					List<DishType> oldDishTypes = db.findAllByWhere(
+							DishType.class, "id=" + dishType.getId());
+					if (oldDishTypes == null || oldDishTypes.size() == 0) {
+						db.saveBindId(dishType);
+					} else {
+						dishType.setDish_type_id(oldDishTypes.get(0)
+								.getDish_type_id());
+						db.update(dishType);
+					}
+					if (dishType.getDishes() != null
+							&& dishType.getDishes().size() > 0) {
+						for (Dish dish : dishType.getDishes()) {
+							List<Dish> oldDishes = db.findAllByWhere(
+									Dish.class, "id=" + dish.getId());
+							if (oldDishes == null || oldDishes.size() == 0) {
+								db.saveBindId(dish);
+							} else {
+								dish.setDish_id(oldDishes.get(0).getDish_id());
+								db.update(dish);
+							}
+						}
+					} else {
+						iterator.remove();
+					}
+				}
+				MyApplication.getInstance().dishTypes = dishTypes;
+				if (callback != null) {
+					callback.excute(t);
+				}
+			}
+
+			@Override
+			public void onFailure(Throwable t, int errorNo, String strMsg) {
+				// TODO Auto-generated method stub
+				super.onFailure(t, errorNo, strMsg);
+				Toast.makeText(
+						MyApplication.getInstance().getApplicationContext(),
+						"获取菜单列表失败，请重试！", Toast.LENGTH_SHORT).show();
+			}
+		});
+	}
+
+	public static void getDishOnSaleTypes(final Callback<String> callback) {
+		String url = MyApplication.getInstance().getString()
+				+ "/mobile/m_dish/dish_type_list_on_sale";
+		MyApplication.getInstance().http.get(url, new AjaxCallBack<String>() {
+			@SuppressWarnings("unchecked")
+			@Override
+			public void onSuccess(String t) {
+				// TODO Auto-generated method stub
+				super.onSuccess(t);
+				List<DishType> dishTypes = (List<DishType>) JsonUtil
+						.json2object(t, new TypeReference<List<DishType>>() {
+						});
+				FinalDb db = MyApplication.getInstance().db;
+				for (Iterator<DishType> iterator = dishTypes.iterator(); iterator
+						.hasNext();) {
+					DishType dishType = (DishType) iterator.next();
+					List<DishType> oldDishTypes = db.findAllByWhere(
+							DishType.class, "id=" + dishType.getId());
+					if (oldDishTypes == null || oldDishTypes.size() == 0) {
+						db.saveBindId(dishType);
+					} else {
+						dishType.setDish_type_id(oldDishTypes.get(0)
+								.getDish_type_id());
+						db.update(dishType);
+					}
+					if (dishType.getDishes() != null
+							&& dishType.getDishes().size() > 0) {
+						for (Dish dish : dishType.getDishes()) {
+							List<Dish> oldDishes = db.findAllByWhere(
+									Dish.class, "id=" + dish.getId());
+							if (oldDishes == null || oldDishes.size() == 0) {
+								db.saveBindId(dish);
+							} else {
+								dish.setDish_id(oldDishes.get(0).getDish_id());
+								db.update(dish);
+							}
+						}
+					} else {
+						iterator.remove();
+					}
+				}
+				MyApplication.getInstance().dishTypes = dishTypes;
+				if (callback != null) {
+					callback.excute(t);
+				}
+			}
+
+			@Override
+			public void onFailure(Throwable t, int errorNo, String strMsg) {
+				// TODO Auto-generated method stub
+				super.onFailure(t, errorNo, strMsg);
+				Toast.makeText(
+						MyApplication.getInstance().getApplicationContext(),
+						"获取菜单列表失败，请重试！", Toast.LENGTH_SHORT).show();
+			}
+		});
+	}
 }
