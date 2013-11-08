@@ -41,7 +41,7 @@ public class BrowDetailListFragmentAdapter extends BaseAdapter {
 		} else {
 			return MyApplication.getInstance().dishTypes.get(type).getDishes()
 					.size();
-		} 
+		}
 	}
 
 	@Override
@@ -68,6 +68,8 @@ public class BrowDetailListFragmentAdapter extends BaseAdapter {
 					.findViewById(R.id.browse_detail_listfragment_itemview_name_textview);
 			viewHolder.textView1 = (TextView) convertView
 					.findViewById(R.id.browse_detail_listfragment_itemview_price_textview);
+			viewHolder.textView2 = (TextView) convertView
+					.findViewById(R.id.flow_sales);
 			viewHolder.imageView = (ImageView) convertView
 					.findViewById(R.id.browse_detail_listfragment_itemview_imageview);
 			convertView.setTag(viewHolder);
@@ -76,6 +78,19 @@ public class BrowDetailListFragmentAdapter extends BaseAdapter {
 				.get(position);
 		ViewHolder viewHolder = (ViewHolder) convertView.getTag();
 		viewHolder.textView0.setText(dish.getName());
+		if (dish.getSales() < 1.0) {
+			viewHolder.textView1.setTextColor(MyApplication.getInstance()
+					.getResources().getColor(android.R.color.darker_gray));
+			viewHolder.textView1.setBackgroundResource(R.drawable.line);
+			viewHolder.textView2.setVisibility(View.VISIBLE);
+			viewHolder.textView2.setText("￥"
+					+ (int) (dish.getPrice() * dish.getSales()));
+		} else {
+			viewHolder.textView1.setTextColor(MyApplication.getInstance()
+					.getResources().getColor(android.R.color.white));
+			viewHolder.textView1.setBackgroundResource(0);
+			viewHolder.textView2.setVisibility(View.INVISIBLE);
+		}
 		viewHolder.textView1.setText("￥" + dish.getPrice());
 		setViewImage(viewHolder.imageView, dish.getImageUrl(), position);
 		return convertView;
@@ -97,15 +112,19 @@ public class BrowDetailListFragmentAdapter extends BaseAdapter {
 					MyApplication.getInstance().getString()).loadBitmap(url,
 					new ImageCallBack(url + position) {
 						public void imageLoaded() {
-							ImageView imageViewByTag = (ImageView) listView
-									.findViewWithTag(this.key);
-							if (imageViewByTag != null) {
+							if (listView != null) {
 
-								if (this.bitmap.get() != null
-										&& this.bitmap.get().getRowBytes() > 0) {
+								ImageView imageViewByTag = (ImageView) listView
+										.findViewWithTag(this.key);
+								if (imageViewByTag != null) {
 
-									imageViewByTag.setImageBitmap(this.bitmap
-											.get());
+									if (this.bitmap.get() != null
+											&& this.bitmap.get().getRowBytes() > 0) {
+
+										imageViewByTag
+												.setImageBitmap(this.bitmap
+														.get());
+									}
 								}
 							}
 						}
@@ -124,8 +143,7 @@ public class BrowDetailListFragmentAdapter extends BaseAdapter {
 	}
 
 	class ViewHolder {
-		TextView textView0;
-		TextView textView1;
+		TextView textView0, textView1, textView2;
 		ImageView imageView;
 	}
 

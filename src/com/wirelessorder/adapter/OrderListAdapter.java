@@ -36,7 +36,8 @@ public class OrderListAdapter extends BaseAdapter {
 	public int getCount() {
 		// TODO Auto-generated method stub
 		Menu menu = MyApplication.getInstance().menu;
-		if (menu == null ||menu.getStatus()==1|| menu.getDish_menus() == null
+		if (menu == null || menu.getStatus() == 1
+				|| menu.getDish_menus() == null
 				|| menu.getDish_menus().size() == 0) {
 			return 0;
 		} else {
@@ -79,10 +80,10 @@ public class OrderListAdapter extends BaseAdapter {
 		ViewHolder viewHolder = (ViewHolder) convertView.getTag();
 		viewHolder.textView0.setText(dish.getName());
 		viewHolder.textView1.setText("" + dish_menu.getAmount() + "份");
-		viewHolder.textView2.setText("￥" + dish.getPrice());
+		viewHolder.textView2.setText("￥" + (int) (dish.getPrice() * dish.getSales()));
 
 		String url = dish.getImageUrl();
-		setViewImage(viewHolder.imageView, url, position,true);
+		setViewImage(viewHolder.imageView, url, position, true);
 		return convertView;
 	}
 
@@ -102,15 +103,19 @@ public class OrderListAdapter extends BaseAdapter {
 					MyApplication.getInstance().getString()).loadBitmap(url,
 					new ImageCallBack(url + position) {
 						public void imageLoaded() {
-							ImageView imageViewByTag = (ImageView) listView
-									.findViewWithTag(this.key);
-							if (imageViewByTag != null) {
+							if (listView != null) {
 
-								if (this.bitmap.get() != null
-										&& this.bitmap.get().getRowBytes() > 0) {
+								ImageView imageViewByTag = (ImageView) listView
+										.findViewWithTag(this.key);
+								if (imageViewByTag != null) {
 
-									imageViewByTag.setImageBitmap(this.bitmap
-											.get());
+									if (this.bitmap.get() != null
+											&& this.bitmap.get().getRowBytes() > 0) {
+
+										imageViewByTag
+												.setImageBitmap(this.bitmap
+														.get());
+									}
 								}
 							}
 						}

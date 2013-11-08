@@ -55,6 +55,8 @@ public class BrowseDetailListViewFragment extends ListFragment {
 		if (adapter != null) {
 			adapter.notifyDataSetChanged(index);
 		}
+		listView.clearChoices();
+		right_views.setVisibility(View.INVISIBLE);
 	}
 
 	@Override

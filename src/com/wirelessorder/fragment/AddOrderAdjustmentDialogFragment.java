@@ -140,7 +140,7 @@ public class AddOrderAdjustmentDialogFragment extends DialogFragment {
 		if (dish != null) {
 			setViewImage(dish_ico, dish.getImageUrl(), true);
 			dishNameTextView.setText(dish.getName());
-			dishPriceTextView.setText("￥" + dish.getPrice());
+			dishPriceTextView.setText("￥" + (int) (dish.getPrice() * dish.getSales()));
 			m_numberTextView.setText("1");
 			m_remarkTextView
 					.setOnFocusChangeListener(new OnFocusChangeListener() {

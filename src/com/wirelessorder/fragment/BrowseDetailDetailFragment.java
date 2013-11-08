@@ -15,13 +15,15 @@ import at.technikum.mti.fancycoverflow.FancyCoverFlow;
 import com.wirelessorder.R;
 import com.wirelessorder.adapter.Gallery3DAdapter;
 import com.wirelessorder.entity.Dish;
+import com.wirelessorder.global.MyApplication;
 import com.wirelessorder.listener.AddOrderButtonOnClickListener;
 
 public class BrowseDetailDetailFragment extends Fragment implements
 		OnItemClickListener, OnItemSelectedListener {
 
 	private View mContentView;
-	private TextView m_DetailTextView, m_nameTextView, m_priceTextView;
+	private TextView m_DetailTextView, m_nameTextView, m_priceTextView,
+			m_salesTextView;
 	private FancyCoverFlow m_gallery;
 	private Button m_HandinButton;
 	private Gallery3DAdapter gallery3dAdapter;
@@ -38,16 +40,15 @@ public class BrowseDetailDetailFragment extends Fragment implements
 		f.setArguments(args);
 		return f;
 	}
-	
-	public void notifyDataSetChanged(int index){
-		if (gallery3dAdapter!=null) {
+
+	public void notifyDataSetChanged(int index) {
+		if (gallery3dAdapter != null) {
 			gallery3dAdapter.notifyDataSetChanged(index);
 		}
 	}
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		mContentView = inflater.inflate(R.layout.browse_details_fragment, null);
 		mContentView = inflater.inflate(R.layout.browse_details_fragment, null);
 		m_addOrderButtonOnClickListener = new AddOrderButtonOnClickListener();
 		Bundle temptBundle = getArguments();
@@ -57,10 +58,11 @@ public class BrowseDetailDetailFragment extends Fragment implements
 			catalog = temptBundle.getInt("index");
 			classString = temptBundle.getString("class");
 		}
-		gallery3dAdapter=new Gallery3DAdapter(catalog, m_gallery);
+		gallery3dAdapter = new Gallery3DAdapter(catalog, m_gallery);
 		initialGallery(catalog, classString);
 		m_nameTextView = (TextView) mContentView.findViewById(R.id.flow_name);
 		m_priceTextView = (TextView) mContentView.findViewById(R.id.flow_price);
+		m_salesTextView = (TextView) mContentView.findViewById(R.id.flow_sales);
 		m_DetailTextView = (TextView) mContentView
 				.findViewById(R.id.browse_fragment_description);
 		m_HandinButton = (Button) mContentView
@@ -70,8 +72,7 @@ public class BrowseDetailDetailFragment extends Fragment implements
 		return mContentView;
 	}
 
-	 
-	private void initialGallery(int catalog, String v_class) { 
+	private void initialGallery(int catalog, String v_class) {
 		m_gallery = (FancyCoverFlow) mContentView
 				.findViewById(R.id.browse_fragment_imagedetails);
 		m_gallery.setAdapter(gallery3dAdapter);
@@ -96,6 +97,19 @@ public class BrowseDetailDetailFragment extends Fragment implements
 		m_addOrderButtonOnClickListener.setCurrentSelectedDishId(dish.getId());
 		m_DetailTextView.setText(dish.getRemarks());
 		m_nameTextView.setText(dish.getName());
+		if (dish.getSales() < 1.0) {
+			m_priceTextView.setTextColor(MyApplication.getInstance()
+					.getResources().getColor(android.R.color.darker_gray));
+			m_priceTextView.setBackgroundResource(R.drawable.line);
+			m_salesTextView.setVisibility(View.VISIBLE);
+			m_salesTextView.setText("￥"
+					+ (int) (dish.getPrice() * dish.getSales()));
+		} else {
+			m_priceTextView.setTextColor(MyApplication.getInstance()
+					.getResources().getColor(android.R.color.white));
+			m_priceTextView.setBackgroundResource(0);
+			m_salesTextView.setVisibility(View.INVISIBLE);
+		}
 		m_priceTextView.setText("￥" + dish.getPrice());
 	}
 

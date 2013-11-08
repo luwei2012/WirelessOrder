@@ -15,10 +15,12 @@
         android:src="@drawable/timeline_image_loading" />
 
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:id="@+id/flow_list_texts"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginLeft="10dp"
+        android:layout_toLeftOf="@+id/flow_sales"
         android:layout_toRightOf="@+id/browse_detail_listfragment_itemview_imageview" >
 
         <TextView
@@ -39,10 +41,32 @@
             android:layout_below="@+id/browse_detail_listfragment_itemview_name_textview"
             android:layout_gravity="center"
             android:layout_marginTop="15dp"
+            android:singleLine="true"
             android:text="@string/loading"
             android:textColor="@android:color/white"
             android:textSize="20sp"
             android:textStyle="bold|italic" />
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/flow_sales"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/sale"
+        android:ellipsize="marquee"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="center"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:scrollHorizontally="true"
+        android:singleLine="true"
+        android:text="@string/loading"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:textStyle="bold|italic"
+        android:visibility="invisible" />
 
 </RelativeLayout>

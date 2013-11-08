@@ -69,20 +69,23 @@ public class Gallery3DAdapter extends FancyCoverFlowAdapter {
 					MyApplication.getInstance().getString()).loadBitmap(url,
 					new ImageCallBack(url + position) {
 						public void imageLoaded() {
-							ImageView imageViewByTag = (ImageView) gallery
-									.findViewWithTag(this.key);
-
-							if (imageViewByTag != null) {
-								if (this.bitmap.get() != null
-										&& this.bitmap.get().getRowBytes() > 0) {
-									imageViewByTag.setImageBitmap(this.bitmap
-											.get());
-									ViewGroup viewGroup = (ViewGroup) imageViewByTag
-											.getParent();
-									viewGroup.requestLayout();
-									viewGroup.invalidate();
+							if (gallery != null) {
+								ImageView imageViewByTag = (ImageView) gallery
+										.findViewWithTag(this.key);
+								if (imageViewByTag != null) {
+									if (this.bitmap.get() != null
+											&& this.bitmap.get().getRowBytes() > 0) {
+										imageViewByTag
+												.setImageBitmap(this.bitmap
+														.get());
+										ViewGroup viewGroup = (ViewGroup) imageViewByTag
+												.getParent();
+										viewGroup.requestLayout();
+										viewGroup.invalidate();
+									}
 								}
 							}
+
 						}
 					}, needFillet);
 			if (draw_pic != null) {

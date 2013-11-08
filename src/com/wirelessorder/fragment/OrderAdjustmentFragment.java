@@ -109,7 +109,8 @@ public class OrderAdjustmentFragment extends DialogFragment {
 		dish = dish_menu.getDish();
 		setViewImage(dish_ico, dish.getImageUrl(), true);
 		dishNameTextView.setText(dish.getName());
-		dishPriceTextView.setText("￥" + dish.getPrice());
+		dishPriceTextView.setText("￥"
+				+ (int) (dish.getPrice() * dish.getSales()));
 		m_numEditText.setText(dish_menu.getAmount() + "");
 		m_remarkTextView = (EditText) returnedView
 				.findViewById(R.id.order_adjustment_fragment_remark_edittext);
